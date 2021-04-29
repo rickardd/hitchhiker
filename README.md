@@ -1,6 +1,4 @@
-# Ruby WebSockets Chat Demo
-
-Project started from [live demo](http://ruby-websockets-chat.herokuapp.com/)
+# HITCHHIKER
 
 ## Setup
 
