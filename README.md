@@ -41,4 +41,10 @@ Using foreman we can boot the application.
 $ foreman start
 ```
 
+deploy
+
+```
+git push heroku main
+```
+
 URL: http://localhost:5000 to see the application.
