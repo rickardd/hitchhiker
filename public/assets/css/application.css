@@ -24,15 +24,15 @@ body {
 
 .chat-container {
   background-color: hsl(0deg 0% 0% / 72%);
-  overflow: auto;
-  height: 500px;
-  top: 12px;
-  bottom: 50%;
-  right: 12px;
+  bottom: 12px;
+  top: 50%;
+  left: 12px;
   width: 250px;
   position: absolute;
   z-index: 1000;
   padding: 12px;
+  display: flex;
+  flex-direction: column;
 }
 
 .chat-container input {
@@ -54,9 +54,13 @@ body {
   border: 0;
   border-radius: 14px;
   padding: 6px 36px;
-  margin: 0 auto;
+  margin: 0 auto 12px;
   display: block;
   box-shadow: 0 3px 6px rgb(0 0 0 / 50%);
+}
+
+.chat-text {
+  overflow-y: scroll;
 }
 
 .panel {
@@ -71,20 +75,4 @@ body {
 .panel-body {
   font-weight: 100;
   font-size: 14px;
-}
-
-.form-inline {
-  /* background-color: hsl(10, 20%, 50%); */
-}
-.form-group {
-  /* background-color: hsl(10, 30%, 50%); */
-}
-.form-control {
-  /* background-color: hsl(10, 40%, 50%); */
-}
-.btn-primary {
-  /* background-color: hsl(10, 50%, 50%); */
-}
-.page-header {
-  /* background-color: hsl(10, 60%, 50%); */
 }

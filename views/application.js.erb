@@ -10,14 +10,13 @@ ws.onmessage = function (message) {
       data.text +
       "</div></div>"
   );
-  $("#chat-text")
-    .stop()
-    .animate(
-      {
-        scrollTop: $("#chat-text")[0].scrollHeight,
-      },
-      800
-    );
+
+  $("#chat-text").stop().animate(
+    {
+      scrollTop: 0,
+    },
+    800
+  );
 };
 
 $("#input-form").on("submit", function (event) {
