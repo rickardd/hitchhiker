@@ -2,9 +2,8 @@ var scheme = "<%= @scheme %>";
 var uri = scheme + window.document.location.host + "/";
 var ws = new WebSocket(uri);
 ws.onmessage = function (message) {
-  console.log("onmessage");
   var data = JSON.parse(message.data);
-  $("#chat-text").append(
+  $("#chat-text").prepend(
     "<div class='panel panel-default'><div class='panel-heading'>" +
       data.handle +
       "</div><div class='panel-body'>" +
@@ -23,11 +22,21 @@ ws.onmessage = function (message) {
 
 $("#input-form").on("submit", function (event) {
   event.preventDefault();
-  console.log("send");
   var handle = $("#input-handle")[0].value;
   var text = $("#input-text")[0].value;
   ws.send(JSON.stringify({ handle: handle, text: text }));
   $("#input-text")[0].value = "";
 });
 
-console.log("hello");
+let map;
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 8,
+  });
+}
+
+setTimeout(() => {
+  initMap();
+}, 1000);

@@ -2,40 +2,38 @@
 <html>
   <head>
     <title>Ruby WebSockets Chat Demo</title>
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" media="screen" />
     <link href="assets/css/application.css" rel="stylesheet" media="screen" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
-    <br />
-    <div class="container">
+    <div class="chat-container">
       <form id="input-form" class="form-inline">
-        <div class="form-group">
-          <input
-            id="input-handle"
-            type="text"
-            class="form-control"
-            placeholder="Name"
-            autofocus
-          />
-        </div>
-        <div class="form-group">
-          <input
-            id="input-text"
-            type="text"
-            class="form-control"
-            placeholder="Message"
-            autofocus
-            style="width: 500px"
-          />
-        </div>
-        <button class="btn btn-primary" type="submit">Send</button>
+        <input
+          autocomplete="off"
+          id="input-handle"
+          type="text"
+          placeholder="Name"
+          autofocus
+        />
+        <input
+          autocomplete="off"
+          id="input-text"
+          type="text"
+          placeholder="Message"
+          autofocus
+        />
+
+        <button type="submit">Send</button>
       </form>
-      <div class="page-header">
-        <h1>Chat</h1>
-      </div>
-      <div id="chat-text"></div>
+      <div id="chat-text" class="chat-text"></div>
     </div>
+
+    <div id="map"></div>
+
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvPsnT7qDsHZCzBzZD5cdd1kxHv45Ymek&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
 
     <script type="text/javascript" src="assets/js/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="assets/js/application.js"></script>

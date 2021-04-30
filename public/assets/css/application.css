@@ -1,4 +1,90 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  position: relative;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 #chat-text {
+}
+
+#map {
+  height: 100%;
+}
+
+.chat-container {
+  background-color: hsl(0deg 0% 0% / 72%);
   overflow: auto;
   height: 500px;
+  top: 12px;
+  bottom: 50%;
+  right: 12px;
+  width: 250px;
+  position: absolute;
+  z-index: 1000;
+  padding: 12px;
+}
+
+.chat-container input {
+  border: 1px solid white;
+  outline: 0;
+  width: 100%;
+  margin-bottom: 12px;
+  background-color: hsla(1, 0%, 0%, 0);
+  color: white;
+  padding: 6px;
+}
+
+.chat-container button {
+  margin-bottom: 12px;
+  background-color: hsla(0, 0%, 100%, 1);
+  color: #101082;
+  font-weight: bold;
+  padding: 6px;
+  border: 0;
+  border-radius: 14px;
+  padding: 6px 36px;
+  margin: 0 auto;
+  display: block;
+  box-shadow: 0 3px 6px rgb(0 0 0 / 50%);
+}
+
+.panel {
+  color: white;
+  margin-bottom: 8px;
+}
+.panel-heading {
+  font-weight: 100;
+  font-size: 10px;
+  margin-bottom: 2px;
+}
+.panel-body {
+  font-weight: 100;
+  font-size: 14px;
+}
+
+.form-inline {
+  /* background-color: hsl(10, 20%, 50%); */
+}
+.form-group {
+  /* background-color: hsl(10, 30%, 50%); */
+}
+.form-control {
+  /* background-color: hsl(10, 40%, 50%); */
+}
+.btn-primary {
+  /* background-color: hsl(10, 50%, 50%); */
+}
+.page-header {
+  /* background-color: hsl(10, 60%, 50%); */
 }
