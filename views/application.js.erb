@@ -33,9 +33,44 @@ let map;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -41.290943, lng: 174.766104 },
-    zoom: 14,
+    center: { lat: -41.292125, lng: 174.76207 },
+    zoom: 13,
   });
+
+  const marker1 = new google.maps.Marker({
+    position: { lat: -41.329084, lng: 174.775516 },
+    map: map,
+    icon: {
+      url: "http://pngimg.com/uploads/dog/dog_PNG50348.png",
+      scaledSize: new google.maps.Size(100, 100), // scaled size
+      // origin: new google.maps.Point(0,0), // origin
+      // anchor: new google.maps.Point(0, 0) // anchor
+    },
+  });
+
+  const marker2 = new google.maps.Marker({
+    position: { lat: -41.286173, lng: 174.766383 },
+    map: map,
+    // icon: "http://cstwiki.wtb.tue.nl/images/thumb/Cat.png/634px-Cat.png",
+    icon: {
+      url: "http://cstwiki.wtb.tue.nl/images/thumb/Cat.png/634px-Cat.png",
+      scaledSize: new google.maps.Size(100, 100), // scaled size
+      // origin: new google.maps.Point(0,0), // origin
+      // anchor: new google.maps.Point(0, 0) // anchor
+    },
+  });
+
+  // setTimeout(() => {
+  //   moveCar(map, marker1);
+  // }, 2000);
+  // setInterval(() => {
+  //   // marker1.position.lat = parseFloat(marker1.position.lat, 10) + 0.00003;
+  //   console.log(marker1.position.lat);
+  // }, 300);
+
+  function moveCar(map, marker) {
+    marker.setPosition(new google.maps.LatLng(-41.278559, 174.781717));
+  }
 }
 
 setTimeout(() => {
