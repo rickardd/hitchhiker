@@ -7,7 +7,7 @@
   </head>
   <body>
     <div class="chat-container">
-      <form id="input-form" class="form-inline">
+      <form id="input-form" >
         <input
           autocomplete="off"
           id="input-handle"
@@ -29,6 +29,70 @@
     </div>
 
     <div id="map"></div>
+
+    <div class="settings-wrapper">
+      <div class="settings">
+        <form id="settings-form" class="settings-form" >
+          <div>
+            <input
+            autocomplete="off"
+            id="settings-input-name"
+            type="text"
+            placeholder="Name"
+            autofocus
+          />
+          </div>
+          <div>
+            <input
+            autocomplete="off"
+            id="settings-input-current-location-lat"
+            type="text"
+            placeholder="Current location latitude e.g -41.326940"
+          />
+          </div>
+          <div>
+            <input
+            autocomplete="off"
+            id="settings-input-current-location-long"
+            type="text"
+            placeholder="Current location longitude e.g 174.777961"
+          />
+          </div>
+          <div>
+            <input
+            autocomplete="off"
+            id="settings-input-destination-address"
+            type="text"
+            placeholder="Destination address"
+          />
+          </div>
+          <div>
+            <input type="radio" id="settings-input-type-car" name="user-type" value="car">
+            <label for="settings-input-type-car">Car</label><br>
+            <input id="settings-input-type-passenger" type="radio" name="user-type" value="passenger">
+            <label for="settings-input-type-passenger">Passenger</label><br>
+          </div>
+          <div>
+            <!-- if car -->
+            <input
+            autocomplete="off"
+            id="settings-input-available-seats"
+            type="number"
+            placeholder="Available seats"
+            />
+          </div>
+          <div>
+            <!-- if car -->
+            <input
+            autocomplete="off"
+            id="settings-input-message"
+            type="text"
+            placeholder="Info/Message"
+            />
+          </div>
+          <button type="submit">Submit</button>
+      </div>
+    </div>
 
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvPsnT7qDsHZCzBzZD5cdd1kxHv45Ymek&callback=initMap&libraries=&v=weekly"

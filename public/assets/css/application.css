@@ -15,6 +15,10 @@ body {
   box-sizing: border-box;
 }
 
+label {
+  color: white;
+}
+
 #chat-text {
 }
 
@@ -75,4 +79,60 @@ body {
 .panel-body {
   font-weight: 100;
   font-size: 14px;
+}
+
+/* Settings */
+
+.settings-wrapper {
+  background-color: hsla(100, 100%, 100%, 0.9);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9000;
+}
+
+.settings {
+  background-color: hsl(0deg 0% 0% / 72%);
+  width: 450px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.7);
+}
+
+.settings-form {
+}
+
+.settings-form > div {
+  margin-bottom: 12px;
+}
+
+.settings-form input:not([type="radio"]) {
+  width: 100%;
+  border: 1px solid white;
+  outline: 0;
+  width: 100%;
+  margin-bottom: 0;
+  background-color: hsla(1, 0%, 0%, 0);
+  color: white;
+  padding: 6px;
+}
+
+.settings-form button {
+  margin-bottom: 12px;
+  background-color: hsla(0, 0%, 100%, 1);
+  color: #101082;
+  font-weight: bold;
+  padding: 6px;
+  border: 0;
+  border-radius: 14px;
+  padding: 6px 36px;
+  margin: 0 auto 12px;
+  display: block;
+  box-shadow: 0 3px 6px rgb(0 0 0 / 50%);
 }
