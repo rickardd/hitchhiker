@@ -87,8 +87,8 @@ const markers = [];
 
 function initMap() {
   addMap();
-  addMarker("passenger", -41.329084, 174.775516);
-  addMarker("car", -41.286173, 174.766383);
+  // addMarker("passenger", -41.329084, 174.775516);
+  // addMarker("car", -41.286173, 174.766383);
 }
 
 function getImageUrl(type) {
@@ -107,7 +107,7 @@ function addMap() {
   });
 }
 
-function addMarker(type, lat, lng) {
+function addMarker(type, lat, lng, data) {
   let marker = new google.maps.Marker({
     position: { lat, lng },
     map: map,
@@ -117,18 +117,25 @@ function addMarker(type, lat, lng) {
     },
   });
 
+  marker.data = data;
+
   markers.push(marker);
 
   console.log(markers);
 }
 
 function updateMarker(data) {
-  if (data.userType === "car") {
-    markerCar.setPosition(new google.maps.LatLng(data.lat, data.long));
+  marker = markers.find((marker) => marker.data.name === data.name);
+  if (marker) {
+    marker.setPosition(new google.maps.LatLng(data.lat, data.long));
   }
-  if (data.userType === "passenger") {
-    markerPassenger.setPosition(new google.maps.LatLng(data.lat, data.long));
-  }
+
+  // if (data.userType === "car") {
+  //   markerCar.setPosition(new google.maps.LatLng(data.lat, data.long));
+  // }
+  // if (data.userType === "passenger") {
+  //   markerPassenger.setPosition(new google.maps.LatLng(data.lat, data.long));
+  // }
 }
 
 function addOrUpdateMarker(data) {
@@ -144,10 +151,14 @@ setTimeout(() => {
 }, 1000);
 
 setTimeout(() => {
-  addMarker("car", -41.322237, 174.766147);
-  addMarker("passenger", -41.328326, 174.762297);
-  addMarker("car", -41.34086, 174.800519);
-  addMarker("passenger", -41.289715, 174.777606);
+  addMarker("car", -41.322237, 174.766147, { name: "user1", userType: "car" });
+  addMarker("passenger", -41.328326, 174.762297),
+    { name: "user2", userType: "passenger" };
+  addMarker("car", -41.34086, 174.800519, { name: "user3", userType: "car" });
+  addMarker("passenger", -41.289715, 174.777606, {
+    name: "user4",
+    userType: "passenger",
+  });
 }, 4000);
 
 // Settings
