@@ -68,7 +68,7 @@ function convertSettingDataToObject(data) {
 }
 
 function onSettingsMessage(data) {
-  console.log(data);
+  addOrUpdateMarker(data);
 }
 
 $("#input-form").on("submit", function (event) {
@@ -82,7 +82,7 @@ $("#input-form").on("submit", function (event) {
 
 // MAP
 
-let map;
+let map, markerCar, markerPassenger;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -90,7 +90,7 @@ function initMap() {
     zoom: 13,
   });
 
-  const marker1 = new google.maps.Marker({
+  markerPassenger = new google.maps.Marker({
     position: { lat: -41.329084, lng: 174.775516 },
     map: map,
     icon: {
@@ -101,7 +101,7 @@ function initMap() {
     },
   });
 
-  const marker2 = new google.maps.Marker({
+  markerCar = new google.maps.Marker({
     position: { lat: -41.286173, lng: 174.766383 },
     map: map,
     // icon: "http://cstwiki.wtb.tue.nl/images/thumb/Cat.png/634px-Cat.png",
@@ -112,23 +112,57 @@ function initMap() {
       // anchor: new google.maps.Point(0, 0) // anchor
     },
   });
+}
 
-  // setTimeout(() => {
-  //   moveCar(map, marker1);
-  // }, 2000);
-  // setInterval(() => {
-  //   // marker1.position.lat = parseFloat(marker1.position.lat, 10) + 0.00003;
-  //   console.log(marker1.position.lat);
-  // }, 300);
+const markers = []; // add markers here
 
-  function moveCar(map, marker) {
-    marker.setPosition(new google.maps.LatLng(-41.278559, 174.781717));
+function getImageUrl(type) {
+  if (type === "car") {
+    return "http://cstwiki.wtb.tue.nl/images/thumb/Cat.png/634px-Cat.png";
   }
+  if (type === "passenger") {
+    return "http://pngimg.com/uploads/dog/dog_PNG50348.png";
+  }
+}
+
+function addMarker(type, lat, lng) {
+  let newMarkerCar = new google.maps.Marker({
+    position: { lat, lng },
+    map: map,
+    icon: {
+      url: getImageUrl(type),
+      scaledSize: new google.maps.Size(50, 50), // scaled size
+    },
+  });
+}
+
+function updateMarker(data) {
+  if (data.userType === "car") {
+    markerCar.setPosition(new google.maps.LatLng(data.lat, data.long));
+  }
+  if (data.userType === "passenger") {
+    markerPassenger.setPosition(new google.maps.LatLng(data.lat, data.long));
+  }
+}
+
+function addOrUpdateMarker(data) {
+  // Find maker with id = data.name
+  // If no marker found add new
+  // Else update marker position and other data.
+
+  updateMarker(data);
 }
 
 setTimeout(() => {
   initMap();
 }, 1000);
+
+setTimeout(() => {
+  addMarker("car", -41.322237, 174.766147);
+  addMarker("passenger", -41.328326, 174.762297);
+  addMarker("car", -41.34086, 174.800519);
+  addMarker("passenger", -41.289715, 174.777606);
+}, 4000);
 
 // Settings
 
