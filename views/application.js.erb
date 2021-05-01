@@ -83,38 +83,13 @@ $("#input-form").on("submit", function (event) {
 // MAP
 
 let map, markerCar, markerPassenger;
+const markers = [];
 
 function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -41.292125, lng: 174.76207 },
-    zoom: 13,
-  });
-
-  markerPassenger = new google.maps.Marker({
-    position: { lat: -41.329084, lng: 174.775516 },
-    map: map,
-    icon: {
-      url: "http://pngimg.com/uploads/dog/dog_PNG50348.png",
-      scaledSize: new google.maps.Size(100, 100), // scaled size
-      // origin: new google.maps.Point(0,0), // origin
-      // anchor: new google.maps.Point(0, 0) // anchor
-    },
-  });
-
-  markerCar = new google.maps.Marker({
-    position: { lat: -41.286173, lng: 174.766383 },
-    map: map,
-    // icon: "http://cstwiki.wtb.tue.nl/images/thumb/Cat.png/634px-Cat.png",
-    icon: {
-      url: "http://cstwiki.wtb.tue.nl/images/thumb/Cat.png/634px-Cat.png",
-      scaledSize: new google.maps.Size(100, 100), // scaled size
-      // origin: new google.maps.Point(0,0), // origin
-      // anchor: new google.maps.Point(0, 0) // anchor
-    },
-  });
+  addMap();
+  addMarker("passenger", -41.329084, 174.775516);
+  addMarker("car", -41.286173, 174.766383);
 }
-
-const markers = []; // add markers here
 
 function getImageUrl(type) {
   if (type === "car") {
@@ -125,8 +100,15 @@ function getImageUrl(type) {
   }
 }
 
+function addMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -41.292125, lng: 174.76207 },
+    zoom: 13,
+  });
+}
+
 function addMarker(type, lat, lng) {
-  let newMarkerCar = new google.maps.Marker({
+  let marker = new google.maps.Marker({
     position: { lat, lng },
     map: map,
     icon: {
@@ -134,6 +116,10 @@ function addMarker(type, lat, lng) {
       scaledSize: new google.maps.Size(50, 50), // scaled size
     },
   });
+
+  markers.push(marker);
+
+  console.log(markers);
 }
 
 function updateMarker(data) {
