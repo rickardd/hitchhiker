@@ -28,198 +28,54 @@ ws.onmessage = function (message) {
   onChatMessage(data);
 };
 
-function onChatMessage(data) {
-  $("#chat-text").prepend(
-    "<div class='panel panel-default'><div class='panel-heading'>" +
-      data.handle +
-      "</div><div class='panel-body'>" +
-      data.text +
-      "</div></div>"
-  );
+// function onChatMessage(data) {
+//   $("#chat-text").prepend(
+//     "<div class='panel panel-default'><div class='panel-heading'>" +
+//       data.handle +
+//       "</div><div class='panel-body'>" +
+//       data.text +
+//       "</div></div>"
+//   );
 
-  $("#chat-text").stop().animate(
-    {
-      scrollTop: 0,
-    },
-    800
-  );
-}
+//   $("#chat-text").stop().animate(
+//     {
+//       scrollTop: 0,
+//     },
+//     800
+//   );
+// }
 
-function convertSettingDataToObject(data) {
-  let = [
-    name,
-    lat,
-    long,
-    destAddress,
-    userType,
-    availableSeats,
-    message,
-  ] = data.values;
+// function convertSettingDataToObject(data) {
+//   let = [
+//     name,
+//     lat,
+//     long,
+//     destAddress,
+//     userType,
+//     availableSeats,
+//     message,
+//   ] = data.values;
 
-  return {
-    name,
-    lat,
-    long,
-    destAddress,
-    userType,
-    availableSeats,
-    message,
-  };
-}
+//   return {
+//     name,
+//     lat,
+//     long,
+//     destAddress,
+//     userType,
+//     availableSeats,
+//     message,
+//   };
+// }
 
-function onSettingsMessage(data) {
-  addOrUpdateMarker(data);
-}
+// function onSettingsMessage(data) {
+//   addOrUpdateMarker(data);
+// }
 
-$("#input-form").on("submit", function (event) {
-  event.preventDefault();
-  var name = $("#input-handle")[0].value;
-  var text = $("#input-text")[0].value;
-  // ws.send(JSON.stringify({ handle: handle, text: text }));
-  wsSend({ handle: name, text });
-  $("#input-text")[0].value = "";
-});
-
-// MAP
-
-let map, markerCar, markerPassenger;
-const markers = [];
-
-function initMap() {
-  addMap();
-  // addMarker("passenger", -41.329084, 174.775516);
-  // addMarker("car", -41.286173, 174.766383);
-}
-
-function getImageUrl(type) {
-  if (type === "car") {
-    return "http://cstwiki.wtb.tue.nl/images/thumb/Cat.png/634px-Cat.png";
-  }
-  if (type === "passenger") {
-    return "http://pngimg.com/uploads/dog/dog_PNG50348.png";
-  }
-}
-
-function addMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -41.292125, lng: 174.76207 },
-    zoom: 13,
-  });
-}
-
-function addMarker(type, lat, lng, data) {
-  let marker = new google.maps.Marker({
-    position: { lat, lng },
-    map: map,
-    icon: {
-      url: getImageUrl(type),
-      scaledSize: new google.maps.Size(50, 50), // scaled size
-    },
-  });
-
-  marker.data = data;
-  markers.push(marker);
-
-  console.log(markers);
-}
-
-function findMarkerByName(name) {
-  return markers.find((m) => m.data.name === name);
-}
-
-function updateMarker(data) {
-  marker = findMarkerByName(data.name);
-  debugger;
-  if (marker) {
-    if (data.lat && data.long) {
-      marker.setPosition(new google.maps.LatLng(data.lat, data.long));
-      return;
-    }
-    console.warn("No lat long was given");
-  }
-}
-
-function addOrUpdateMarker(data) {
-  // Find maker with id = data.name
-  const marker = findMarkerByName(data.name);
-  // If no marker found add new
-  if (!marker) {
-    addMarker(data.userType, -41.322237, 174.766147, data);
-    console.log("add marker");
-    return;
-  }
-  // Else update marker position and other data.
-  console.log("update marker");
-  updateMarker(data);
-}
-
-setTimeout(() => {
-  initMap();
-}, 1000);
-
-// Settings
-
-(function () {
-  const settingsWrapper = qs(".settings-wrapper");
-  const settingsForm = qs("#settings-form");
-  const settingsCloseBtn = qs(".settings-close-btn");
-
-  function bind() {
-    settingsForm.addEventListener("submit", onSubmit);
-    settingsCloseBtn.addEventListener("click", onClose);
-  }
-
-  function onClose(e) {
-    e.preventDefault();
-    settingsWrapper.classList.add("is-closed");
-  }
-
-  function onSubmit(e) {
-    e.preventDefault();
-    const name = qs("#settings-input-name").value;
-    const lat = qs("#settings-input-current-location-lat").value;
-    const long = qs("#settings-input-current-location-long").value;
-    const destAddress = qs("#settings-input-destination-address").value;
-    const userType = getRadioValue("user-type");
-    const availableSeats = qs("#settings-input-available-seats").value;
-    const message = qs("#settings-input-message").value;
-
-    // saveSettings(
-    //   name,
-    //   lat,
-    //   long,
-    //   destAddress,
-    //   car,
-    //   passenger,
-    //   availableSeats,
-    //   message
-    // );
-
-    submitSettings(
-      name,
-      lat,
-      long,
-      destAddress,
-      userType,
-      availableSeats,
-      message
-    );
-  }
-
-  const getRadioValue = (name) => {
-    const type = selectorByName(name);
-    const checked = [...type].find((item) => item.checked);
-    return checked ? checked.value : false;
-  };
-
-  // const saveSettings = () => {};
-
-  const submitSettings = (...values) => {
-    console.log(values);
-    wsSend({ handle: "settings", values }, false);
-  };
-
-  if (settingsForm) {
-    bind();
-  }
-})();
+// $("#input-form").on("submit", function (event) {
+//   event.preventDefault();
+//   var name = $("#input-handle")[0].value;
+//   var text = $("#input-text")[0].value;
+//   // ws.send(JSON.stringify({ handle: handle, text: text }));
+//   wsSend({ handle: name, text });
+//   $("#input-text")[0].value = "";
+// });
