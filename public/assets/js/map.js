@@ -1,12 +1,31 @@
-// MAP
-
-let map, markerCar, markerPassenger;
+let map, markerCar, markerPassenger, infoWindow;
 const markers = [];
 
 function initMap() {
   addMap();
-  // addMarker("passenger", -41.329084, 174.775516);
-  // addMarker("car", -41.286173, 174.766383);
+
+  addInfoWindow();
+
+  map.addListener("click", mapOnClick);
+}
+
+function mapOnClick(mapsMouseEvent) {
+  infoWindow.close();
+
+  infoWindow = new google.maps.InfoWindow({
+    position: mapsMouseEvent.latLng,
+  });
+  infoWindow.setContent(
+    JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+  );
+  infoWindow.open(map);
+}
+
+function addInfoWindow() {
+  infoWindow = new google.maps.InfoWindow({
+    content: "Click the map to get Lat/Lng!",
+    position: { lat: -41.30857, lng: 174.806294 },
+  });
 }
 
 function getImageUrl(type) {
