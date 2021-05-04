@@ -10,7 +10,7 @@ function initMap() {
 }
 
 function mapOnClick(mapsMouseEvent) {
-  infoWindow.close();
+  // infoWindow.close();
 
   // infoWindow = new google.maps.InfoWindow({
   //   position: mapsMouseEvent.latLng,
@@ -62,6 +62,41 @@ function addMarker(type, lat, lng, data) {
   markers.push(marker);
 
   console.log(markers);
+
+  bindMarkerEvents();
+}
+
+function getWindowContent(data) {
+  if (data.userType === "car") {
+    return `
+        <p>
+        <b>${user.name}'s</b> ${user.userType} has ${user.availableSeats} available seats to <b>${user.destAddress}</b>
+        </p>
+        <p>
+          - ${user.message}
+        </p>
+        `;
+  }
+
+  if (data.userType === "passenger") {
+    return `
+        <p>
+        <b>${user.name}</b> wants to go to <b>${user.destAddress}</b>
+        </p>
+        <p>
+          - ${user.message}
+        </p>
+        `;
+  }
+}
+
+function bindMarkerEvents() {
+  markers.forEach((marker) => {
+    marker.addListener("click", function () {
+      infoWindow.setContent(getWindowContent(marker.data));
+      infoWindow.open(map, marker);
+    });
+  });
 }
 
 function findMarkerByName(name) {
