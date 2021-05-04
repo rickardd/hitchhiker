@@ -5,7 +5,7 @@ const qs = (selector) => document.querySelector(selector);
 const qsa = (selector) => document.querySelectorAll(selector);
 const selectorByName = (name) => document.getElementsByName(name);
 
-const wsSend = (data, stringify = true) => {
+const wsSend = (data) => {
   if (data.handle === "settings") {
     data.values = data.values.toString(); // temp, ugly fix for parsing issues.
   }
@@ -27,55 +27,3 @@ ws.onmessage = function (message) {
   }
   onChatMessage(data);
 };
-
-// function onChatMessage(data) {
-//   $("#chat-text").prepend(
-//     "<div class='panel panel-default'><div class='panel-heading'>" +
-//       data.handle +
-//       "</div><div class='panel-body'>" +
-//       data.text +
-//       "</div></div>"
-//   );
-
-//   $("#chat-text").stop().animate(
-//     {
-//       scrollTop: 0,
-//     },
-//     800
-//   );
-// }
-
-// function convertSettingDataToObject(data) {
-//   let = [
-//     name,
-//     lat,
-//     long,
-//     destAddress,
-//     userType,
-//     availableSeats,
-//     message,
-//   ] = data.values;
-
-//   return {
-//     name,
-//     lat,
-//     long,
-//     destAddress,
-//     userType,
-//     availableSeats,
-//     message,
-//   };
-// }
-
-// function onSettingsMessage(data) {
-//   addOrUpdateMarker(data);
-// }
-
-// $("#input-form").on("submit", function (event) {
-//   event.preventDefault();
-//   var name = $("#input-handle")[0].value;
-//   var text = $("#input-text")[0].value;
-//   // ws.send(JSON.stringify({ handle: handle, text: text }));
-//   wsSend({ handle: name, text });
-//   $("#input-text")[0].value = "";
-// });

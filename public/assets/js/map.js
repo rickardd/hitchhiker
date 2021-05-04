@@ -12,13 +12,17 @@ function initMap() {
 function mapOnClick(mapsMouseEvent) {
   infoWindow.close();
 
-  infoWindow = new google.maps.InfoWindow({
-    position: mapsMouseEvent.latLng,
-  });
-  infoWindow.setContent(
-    JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-  );
-  infoWindow.open(map);
+  // infoWindow = new google.maps.InfoWindow({
+  //   position: mapsMouseEvent.latLng,
+  // });
+  // infoWindow.setContent(
+  //   JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+  // );
+  // infoWindow.open(map);
+
+  const lat = mapsMouseEvent.latLng.lat();
+  const lng = mapsMouseEvent.latLng.lng();
+  settingsForm.populateCoordinates(lat, lng);
 }
 
 function addInfoWindow() {
@@ -66,7 +70,6 @@ function findMarkerByName(name) {
 
 function updateMarker(data) {
   marker = findMarkerByName(data.name);
-  debugger;
   if (marker) {
     if (data.lat && data.long) {
       marker.setPosition(new google.maps.LatLng(data.lat, data.long));
@@ -81,7 +84,8 @@ function addOrUpdateMarker(data) {
   const marker = findMarkerByName(data.name);
   // If no marker found add new
   if (!marker) {
-    addMarker(data.userType, -41.322237, 174.766147, data);
+    addMarker(data.userType, data.lat, data.long, data);
+
     console.log("add marker");
     return;
   }

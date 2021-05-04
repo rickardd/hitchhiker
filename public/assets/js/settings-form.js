@@ -1,9 +1,17 @@
-// Settings
+let user = {}; // could be a class
 
-(function () {
+settingsForm = (function () {
+  // could be a class
   const settingsWrapper = qs(".settings-wrapper");
   const settingsForm = qs("#settings-form");
   const settingsCloseBtn = qs(".settings-close-btn");
+
+  const nameEl = qs("#settings-input-name");
+  const latEl = qs("#settings-input-current-location-lat");
+  const longEl = qs("#settings-input-current-location-long");
+  const destAddressEl = qs("#settings-input-destination-address");
+  const availableSeatsEl = qs("#settings-input-available-seats");
+  const messageEl = qs("#settings-input-message");
 
   function bind() {
     settingsForm.addEventListener("submit", onSubmit);
@@ -15,36 +23,22 @@
     settingsWrapper.classList.add("is-closed");
   }
 
+  function getValues() {
+    return {
+      name: nameEl.value,
+      lat: latEl.value,
+      long: longEl.value,
+      destAddress: destAddressEl.value,
+      userType: getRadioValue("user-type"),
+      availableSeats: availableSeatsEl.value,
+      message: messageEl.value,
+    };
+  }
+
   function onSubmit(e) {
     e.preventDefault();
-    const name = qs("#settings-input-name").value;
-    const lat = qs("#settings-input-current-location-lat").value;
-    const long = qs("#settings-input-current-location-long").value;
-    const destAddress = qs("#settings-input-destination-address").value;
-    const userType = getRadioValue("user-type");
-    const availableSeats = qs("#settings-input-available-seats").value;
-    const message = qs("#settings-input-message").value;
-
-    // saveSettings(
-    //   name,
-    //   lat,
-    //   long,
-    //   destAddress,
-    //   car,
-    //   passenger,
-    //   availableSeats,
-    //   message
-    // );
-
-    submitSettings(
-      name,
-      lat,
-      long,
-      destAddress,
-      userType,
-      availableSeats,
-      message
-    );
+    user = getValues();
+    submitSettings();
   }
 
   const getRadioValue = (name) => {
@@ -53,14 +47,38 @@
     return checked ? checked.value : false;
   };
 
-  // const saveSettings = () => {};
+  const submitSettings = () => {
+    console.log(user);
 
-  const submitSettings = (...values) => {
-    console.log(values);
-    wsSend({ handle: "settings", values }, false);
+    wsSend(
+      {
+        handle: "settings",
+        values: [
+          user.name,
+          user.lat,
+          user.long,
+          user.destAddress,
+          user.userType,
+          user.availableSeats,
+          user.message,
+        ],
+      },
+      false
+    );
   };
+
+  function _populateCoordinates(lat, lng) {
+    latEl.value = lat;
+    longEl.value = lng;
+  }
 
   if (settingsForm) {
     bind();
   }
+
+  return {
+    populateCoordinates: function (lat, lng) {
+      _populateCoordinates(lat, lng);
+    },
+  };
 })();

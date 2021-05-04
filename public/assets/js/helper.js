@@ -11,8 +11,8 @@ function convertSettingDataToObject(data) {
 
   return {
     name,
-    lat,
-    long,
+    lat: parseFloat(lat),
+    long: parseFloat(long),
     destAddress,
     userType,
     availableSeats,
