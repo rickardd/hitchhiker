@@ -10,6 +10,8 @@ settingsForm = (function () {
   const latEl = qs("#settings-input-current-location-lat");
   const longEl = qs("#settings-input-current-location-long");
   const destAddressEl = qs("#settings-input-destination-address");
+  const destAddressLatEl = qs("#settings-input-destination-lat");
+  const destAddressLongEl = qs("#settings-input-destination-long");
   const availableSeatsEl = qs("#settings-input-available-seats");
   const messageEl = qs("#settings-input-message");
 
@@ -29,6 +31,8 @@ settingsForm = (function () {
       lat: latEl.value,
       long: longEl.value,
       destAddress: destAddressEl.value,
+      destLat: destAddressLatEl.value,
+      destLong: destAddressLongEl.value,
       userType: getRadioValue("user-type"),
       availableSeats: availableSeatsEl.value,
       message: messageEl.value,
@@ -48,8 +52,6 @@ settingsForm = (function () {
   };
 
   const submitSettings = () => {
-    console.log(user);
-
     wsSend(
       {
         handle: "settings",
@@ -58,6 +60,8 @@ settingsForm = (function () {
           user.lat,
           user.long,
           user.destAddress,
+          user.destLat,
+          user.destLong,
           user.userType,
           user.availableSeats,
           user.message,
@@ -72,6 +76,12 @@ settingsForm = (function () {
     longEl.value = lng;
   }
 
+  function _populateDestination(address, lat, long) {
+    destAddressEl.value = address;
+    destAddressLatEl.value = lat;
+    destAddressLongEl.value = long;
+  }
+
   if (settingsForm) {
     bind();
   }
@@ -79,6 +89,9 @@ settingsForm = (function () {
   return {
     populateCoordinates: function (lat, lng) {
       _populateCoordinates(lat, lng);
+    },
+    populateDestination(address, lat, long) {
+      _populateDestination(address, lat, long);
     },
   };
 })();

@@ -10,13 +10,11 @@ const wsSend = (data) => {
     data.values = data.values.toString(); // temp, ugly fix for parsing issues.
   }
   ws.send(JSON.stringify(data));
-  console.log("sending", JSON.stringify(data));
 };
 
 ws.onmessage = function (message) {
-  console.log("receiving", message.data);
   var data = JSON.parse(message.data);
-  console.log("receiving - parsed", data);
+  console.log("received: parsed", data);
 
   if (data.handle === "settings") {
     data.values = data.values.split(",");

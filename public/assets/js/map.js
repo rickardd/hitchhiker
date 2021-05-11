@@ -39,6 +39,9 @@ function getImageUrl(type) {
   if (type === "passenger") {
     return "http://pngimg.com/uploads/dog/dog_PNG50348.png";
   }
+  if (type === "destination") {
+    return "https://image.pngaaa.com/496/1433496-middle.png";
+  }
 }
 
 function addMap() {
@@ -49,20 +52,30 @@ function addMap() {
 }
 
 function addMarker(type, lat, lng, data) {
+  lat = parseFloat(lat);
+  lng = parseFloat(lng);
+
+  let imageSizeX = 50;
+  let imageSizeY = 50;
+
+  if (type === "destination") {
+    imageSizeX = 512 / 10;
+    imageSizeY = 384 / 10;
+    lat = parseFloat(destLat);
+    lng = parseFloat(destLong);
+  }
+
   let marker = new google.maps.Marker({
     position: { lat, lng },
     map: map,
     icon: {
       url: getImageUrl(type),
-      scaledSize: new google.maps.Size(50, 50), // scaled size
+      scaledSize: new google.maps.Size(imageSizeX, imageSizeY), // scaled size
     },
   });
 
   marker.data = data;
   markers.push(marker);
-
-  console.log(markers);
-
   bindMarkerEvents();
 }
 
@@ -121,11 +134,12 @@ function addOrUpdateMarker(data) {
   if (!marker) {
     addMarker(data.userType, data.lat, data.long, data);
 
-    console.log("add marker");
+    if (data.destAddress && data.destLat && data.destLong) {
+      addMarker("destination", data.destLat, data.destLong, data);
+    }
     return;
   }
   // Else update marker position and other data.
-  console.log("update marker");
   updateMarker(data);
 }
 
